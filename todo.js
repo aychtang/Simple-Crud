@@ -22,7 +22,6 @@ if (Meteor.isClient) {
     },
 
     'click .listItem' : function () {
-      console.log(this);
       Session.set('editing', this._id);
     },
 
