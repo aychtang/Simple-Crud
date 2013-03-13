@@ -12,8 +12,11 @@ if (Meteor.isClient) {
   Template.header.events = {
     'click .sub' : function () {
       var item = $('.todo').val();
-      if (item.length !== 0) Things.insert({todo: item});
+      var minutesBy = $('.by').val();
+      var now = new Date().getTime();
+      if (item.length !== 0) Things.insert({todo: item, by: minutesBy, finish: now + (1000 * 60 * minutesBy)});
       $('.todo').val('');
+      $('.by').val('');
     }
   };
 
@@ -24,25 +27,18 @@ if (Meteor.isClient) {
       Session.set('editing', null);
     },
 
-    'click .listItem' : function () {
-      if (Session.get('editing') !== this._id){
-        Session.set('editing', this._id);
-      }
-
-      var currentItem = this.todo;
-      Meteor.setTimeout(function(){
-        if ($('.update').val() !== currentItem){
-          $('.update').val(currentItem);
-        }
-      }, 1);
+    'click .listItem' : function (event) {
+      if (Session.get('editing') !== this._id) Session.set('editing', this._id);
+      event.stopPropagation();
     },
 
     'click .subUpdate' : function (event) {
-      Things.update({_id: this._id}, {todo: $('.update').val()});
+      var minutesBy = $('.updateTime').val();
+      var now = new Date().getTime();
+      Things.update({_id: this._id}, {todo: $('.update').val(), by: $('.updateTime').val(), finish: now + (1000 * 60 * minutesBy)});
       Session.set('editing', null);
       event.stopPropagation();
     }
 
   };
-
 }
