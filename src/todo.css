@@ -1,4 +1,6 @@
 /* CSS declarations go here */
-.listItem { width: 200px; padding: 20px; }
+body { width: 900px; margin: 0 auto; }
+
+.listItem, header { width: 200px; padding: 20px; }
 .listItem:hover { background: rgb(255, 160, 160); }
 .destroy { float: right; }
