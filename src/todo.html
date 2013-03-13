@@ -11,15 +11,16 @@
 
 <template name="header">
   <header>
-    <h1>Yo World!</h1>
+    <h1>To do.</h1>
     <input type="text" placeholder="todo" class="todo" />
+    <input type="text" placeholder="by" class="by" />
     <input type="button" class="sub" value="Submit" />
   </header>
 </template>
 
 <template name="container">
   <div class="contain">
-    <h1>Things to do</h1>
+    <h2>Things to do</h2>
     {{#each toDo}}
       <div>{{> thing}}</div>
     {{/each}}

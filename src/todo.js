@@ -5,7 +5,7 @@ if (Meteor.isClient) {
   };
 
   Template.thing.editing = function () {
-    if(Session.get('editing') === this._id) return true;
+    if (Session.get('editing') === this._id) return true;
     else if (Session.get('editing') === null) return false;
   };
 
@@ -17,13 +17,24 @@ if (Meteor.isClient) {
     }
   };
 
-  Template.thing.events ={
+  Template.thing.events = {
+    
     'click .destroy' : function () {
       Things.remove(this);
+      Session.set('editing', null);
     },
 
     'click .listItem' : function () {
-      Session.set('editing', this._id);
+      if (Session.get('editing') !== this._id){
+        Session.set('editing', this._id);
+      }
+
+      var currentItem = this.todo;
+      Meteor.setTimeout(function(){
+        if ($('.update').val() !== currentItem){
+          $('.update').val(currentItem);
+        }
+      }, 1);
     },
 
     'click .subUpdate' : function (event) {
@@ -31,6 +42,7 @@ if (Meteor.isClient) {
       Session.set('editing', null);
       event.stopPropagation();
     }
+
   };
 
 }
