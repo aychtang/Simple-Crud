@@ -1,1 +1,1 @@
-  var Things = new Meteor.Collection('Things');
+var Things = new Meteor.Collection('Things');

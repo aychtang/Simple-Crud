@@ -1,4 +1,4 @@
-if (Meteor.isClient) {
+if (Meteor.isClient){
   var now = new Date().getTime();
   var nowDeps = new Deps.Dependency;
 
@@ -7,7 +7,7 @@ if (Meteor.isClient) {
       nowDeps.changed();
   }, 1);
 
-  Template.thing.preserve(['.listItem', '.destroy']);
+  Template.thing.preserve(['.listItem']);
 
   Template.container.toDo = function () {
     return Things.find({});
@@ -32,7 +32,7 @@ if (Meteor.isClient) {
       var item = $('.todo').val();
       var minutesBy = $('.by').val();
       var now = new Date().getTime();
-      if (item.length !== 0) Things.insert({todo: item, by: minutesBy, finish: now + (1000 * 60 * minutesBy)});
+      if (item.length !== 0 && minutesBy > 0) Things.insert({todo: item, by: minutesBy, finish: now + (1000 * 60 * minutesBy)});
       $('.todo').val('');
       $('.by').val('');
     }

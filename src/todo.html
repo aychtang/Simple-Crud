@@ -14,7 +14,7 @@
   <header>
     <h1>To do in x minutes.</h1>
     <input type="text" placeholder="todo" class="todo" />
-    <input type="text" placeholder="by" class="by" />
+    <input type="text" placeholder="x minutes" class="by" />
     <input type="button" class="sub" value="Submit" />
   </header>
 </template>
@@ -33,11 +33,12 @@
     {{#unless editing}}
         <span>{{todo}} in {{getDiff}} minutes.</span>
     {{/unless}}
-    <input type="button" class="destroy" value="x" />
+
     {{#if editing}}
       <input type="text" class="update" value={{todo}} />
       <input type="text" class="updateTime" value={{by}} />
       <input type="button" class="subUpdate" value="update" />
+      <input type="button" class="destroy" value="x" />
     {{/if}}
   </div>
 </template>
