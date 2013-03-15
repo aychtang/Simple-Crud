@@ -1,4 +1,13 @@
 if (Meteor.isClient) {
+  var now = new Date().getTime();
+  var nowDeps = new Deps.Dependency;
+
+  Meteor.setInterval(function(){
+      now = new Date().getTime();
+      nowDeps.changed();
+  }, 1);
+
+  Template.thing.preserve(['.listItem', '.destroy']);
 
   Template.container.toDo = function () {
     return Things.find({});
@@ -7,6 +16,15 @@ if (Meteor.isClient) {
   Template.thing.editing = function () {
     if (Session.get('editing') === this._id) return true;
     else if (Session.get('editing') === null) return false;
+  };
+
+  Template.thing.getDiff = function () {
+      Deps.depend(nowDeps);
+      var thisDoc = Things.findOne({_id: this._id});
+      var then = thisDoc.finish;
+      var diff = ((then - now) / 1000 / 60).toFixed(4);
+
+      return diff;
   };
 
   Template.header.events = {
@@ -21,9 +39,9 @@ if (Meteor.isClient) {
   };
 
   Template.thing.events = {
-    
+
     'click .destroy' : function () {
-      Things.remove(this);
+      Things.remove({_id: this._id});
       Session.set('editing', null);
     },
 

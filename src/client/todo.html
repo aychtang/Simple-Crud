@@ -7,6 +7,7 @@
 <body>
   {{> header}}
   {{> container}}
+  <a href="http://github.com/cheeseen">~</a>
 </body>
 
 <template name="header">
@@ -29,9 +30,8 @@
 
 <template name="thing">
   <div class="listItem">
-    
     {{#unless editing}}
-        <span>{{todo}} in {{by}} minutes. by {{finish}}</span>
+        <span>{{todo}} in {{getDiff}} minutes.</span>
     {{/unless}}
     <input type="button" class="destroy" value="x" />
     {{#if editing}}
